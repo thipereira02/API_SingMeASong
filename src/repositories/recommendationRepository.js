@@ -44,3 +44,22 @@ export async function deleteVideo(id) {
     WHERE id=$1
   `, [id]);
 }
+
+export async function checkForSongs() {
+  const result = connection.query(`
+    SELECT *
+    FROM videos
+  `);
+  if (result.rowCount === 0) return false;
+  return true;
+}
+
+export async function findVideos(where) {
+  const result = await connection.query(`
+    SELECT *
+    FROM videos
+    ${where}
+    ORDER BY RANDOM()
+  `);
+  return result.rows[0];
+}

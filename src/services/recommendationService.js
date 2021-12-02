@@ -33,3 +33,17 @@ export async function changingScore(id, review) {
   }
   return true;
 }
+
+export async function getRecommendation() {
+  const checkForSongs = await recommendationRepository.checkForSongs();
+  if (!checkForSongs) return false;
+
+  const random = Math.random();
+  let where = '';
+
+  if (random > 0.3) where = 'WHERE score >= 10';
+  else where = 'WHERE score < 10';
+
+  const result = await recommendationRepository.findVideos(where);
+  return result;
+}
