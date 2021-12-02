@@ -2,8 +2,8 @@ import * as recommendationRepository from '../repositories/recommendationReposit
 
 import { isYoutubeVideo } from '../utils/isYoutubeLink.js';
 
-export async function checkData(name, youtubeLink) {
-  if (!name || !isYoutubeVideo(youtubeLink)) return false;
+export async function checkData(name, youtubeLink, genresIds) {
+  if (!name || !isYoutubeVideo(youtubeLink) || genresIds.length === 0) return false;
   return true;
 }
 
@@ -13,8 +13,8 @@ export async function checkIfExists(youtubeLink) {
   return false;
 }
 
-export async function insertVideo(name, youtubeLink) {
-  await recommendationRepository.insertVideo(name, youtubeLink);
+export async function insertVideo(name, youtubeLink, genresIds) {
+  await recommendationRepository.insertVideo(name, youtubeLink, genresIds);
   return true;
 }
 
