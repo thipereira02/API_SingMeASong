@@ -10,3 +10,9 @@ export async function createNewGenre(name) {
   await genreRepository.createNewGenre(name);
   return true;
 }
+
+export async function listAllGenres() {
+  const genres = await genreRepository.listGenres();
+  if (!genres) return false;
+  return genres;
+}

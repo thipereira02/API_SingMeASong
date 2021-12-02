@@ -18,3 +18,15 @@ export async function createGenre(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function listGenres(req, res) {
+  try {
+    const genres = await genreService.listAllGenres();
+    if (!genres) return res.sendStatus(404);
+
+    return res.send(genres);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+}

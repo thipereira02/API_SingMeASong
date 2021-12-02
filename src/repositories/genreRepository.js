@@ -18,3 +18,13 @@ export async function createNewGenre(name) {
     VALUES ($1)
   `, [name]);
 }
+
+export async function listGenres() {
+  const result = await connection.query(`
+    SELECT *
+    FROM genres
+    ORDER BY name
+  `);
+  if (result.rowCount === 0) return false;
+  return result.rows;
+}
