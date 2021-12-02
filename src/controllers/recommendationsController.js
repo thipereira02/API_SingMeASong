@@ -19,3 +19,31 @@ export async function newRecommendation(req, res) {
     res.sendStatus(500);
   }
 }
+
+export async function upvoteRecommendation(req, res) {
+  try {
+    const { id } = req.params;
+
+    const changeScore = await recommendationService.changingScore(id, '+');
+    if (!changeScore) return res.sendStatus(404);
+
+    return res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+}
+
+export async function downvoteRecommendation(req, res) {
+  try {
+    const { id } = req.params;
+
+    const changeScore = await recommendationService.changingScore(id, '-');
+    if (!changeScore) return res.sendStatus(404);
+
+    return res.sendStatus(200);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+}
