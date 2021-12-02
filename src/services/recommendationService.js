@@ -47,3 +47,11 @@ export async function getRecommendation() {
   const result = await recommendationRepository.findVideos(where);
   return result;
 }
+
+export async function topVideos(amount) {
+  if (amount < 1) return null;
+
+  const topRecommendations = await recommendationRepository.topRecommendations(amount);
+  if (!topRecommendations) return false;
+  return topRecommendations;
+}

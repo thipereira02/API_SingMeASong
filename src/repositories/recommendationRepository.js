@@ -63,3 +63,14 @@ export async function findVideos(where) {
   `);
   return result.rows[0];
 }
+
+export async function topRecommendations(amount) {
+  const result = await connection.query(`
+    SELECT *
+    FROM videos
+    ORDER BY score DESC
+    LIMIT $1
+  `, [amount]);
+  if (result.rowCount !== 0) return result.rows;
+  return false;
+}

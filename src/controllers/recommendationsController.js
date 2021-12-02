@@ -50,10 +50,25 @@ export async function downvoteRecommendation(req, res) {
 
 export async function getRandomRecommendation(req, res) {
   try {
-    const result = await recommendationService.getRecommendation();
-    if (!result) return res.sendStatus(404);
+    const recommendation = await recommendationService.getRecommendation();
+    if (!recommendation) return res.sendStatus(404);
 
-    return res.send(result);
+    return res.send(recommendation);
+  } catch (e) {
+    console.log(e);
+    res.sendStatus(500);
+  }
+}
+
+export async function topRecommendations(req, res) {
+  try {
+    const { amount } = req.params;
+
+    const topVideos = await recommendationService.topVideos(amount);
+    if (topVideos === null) return res.sendStatus(406);
+    if (topVideos === false) return res.sendStatus(404);
+
+    return res.send(topVideos);
   } catch (e) {
     console.log(e);
     res.sendStatus(500);
