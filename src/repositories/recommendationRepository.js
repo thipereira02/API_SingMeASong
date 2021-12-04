@@ -55,7 +55,7 @@ export async function deleteVideo(id) {
 }
 
 export async function checkForSongs() {
-  const result = connection.query(`
+  const result = await connection.query(`
     SELECT *
     FROM recommendations
   `);
@@ -70,6 +70,14 @@ export async function findVideos(where) {
     ${where}
     ORDER BY RANDOM()
   `);
+  if (result.rows[0] === undefined) {
+    const ifNotRecommendation = await connection.query(`
+      SELECT *
+      FROM recommendations
+      ORDER BY RANDOM()
+    `);
+    return ifNotRecommendation.rows[0];
+  }
   return result.rows[0];
 }
 
