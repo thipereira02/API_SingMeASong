@@ -4,7 +4,7 @@ Have you ever asked anyone for a song recommendation?
 
 Sing me a song is an API for anonymous song recommendation. The more people like a recommendation, the more likely it is to be recommended to others.
 
-Try it out now at 
+Try it out now at https://back-singmesong.herokuapp.com/
 
 ## About
 
